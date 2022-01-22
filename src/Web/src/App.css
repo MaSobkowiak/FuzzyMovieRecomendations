@@ -1,0 +1,80 @@
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: teal;
+}
+
+.image-preview-box {
+  font-size: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 20px;
+  border: 2px solid;
+  border-radius: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.form > * {
+  margin: 0.5em auto;
+}
+
+.file-chooser-button {
+  border: 1px solid teal;
+  padding: 0.6em 2em;
+  position: relative;
+  color: teal;
+  background: white;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.file-input:hover{
+  cursor: pointer;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.upload-button {
+  background-color: white;
+  border-radius: 20px;
+  color: teal;
+  border: 0px solid;
+  padding: 0.6em 2em;
+  margin-top: 20px;
+}
+.upload-button:hover{
+  cursor: pointer;
+}
+.result-form{
+  margin-top: 10px;
+  height: 100px;
+  border: 2px solid;
+  padding: 20px;
+  border-radius: 20px;
+  justify-content: space-between;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.result-form-footer{
+  color: white;
+  margin-top: 20px;
+}
