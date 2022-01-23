@@ -26,18 +26,29 @@ const HomeScreen: FC = (): JSX.Element => {
     const handleRefresh = () => {
         setLoading(true)
         axios({
-            method: 'post',
+            params: {
+                year: year,
+                budget: budget,
+                mood: mood,
+                duration: duration,
+                vote: vote,
+                popularity: popularity
+            },
+            method: 'get',
             headers: {
-                "Content-Type": "multipart/form-data",
                 "Access-Control-Allow-Origin": "*"
             },
 
-            url: ' https://localhost:8080/movies',
+            url: 'http://localhost:5000/movies',
         })
             .then((resp) => {
                 setLoading(false)
+                console.log(resp)
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                setLoading(false)
+                console.error(err)
+            });
     }
 
     const MovieInit = () => {
