@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IMovie } from '../interfaces/IMovie';
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { BsQuestion } from "react-icons/bs";
 import "./MovieList.css"
 import { IconContext } from 'react-icons';
 
@@ -20,7 +21,17 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
                     <IoCloseCircleSharp onClick={() => setActiveMovie(undefined)} />
                 </IconContext.Provider>
 
-                <img className='movie-list-info-img' src={`${activeMovie?.poster}`} />
+                {
+                    activeMovie?.poster ? <img alt='No poster avalible' className='movie-list-info-img' src={`${activeMovie?.poster}`} /> :
+                        <div className='movie-card-poster-none'>
+                            <IconContext.Provider
+                                value={{ color: '#2c3e5027', size: '200px' }}
+                            >
+                                <BsQuestion />
+                            </IconContext.Provider>
+                        </div>
+                }
+
                 <div className='movie-list-info-txt'>{activeMovie?.title}</div>
                 <div className='movie-list-info-txt'>{activeMovie?.country}</div>
                 <div className='movie-list-info-txt'>{activeMovie?.genre}</div>
@@ -36,7 +47,18 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
                 <div className='movie-card-accuracy'>
                     {props.accuracy}%
                 </div>
-                <img className='movie-card-poster' src={`${props.poster}`} />
+                {
+                    props.poster ? <img alt='No poster avalible' className='movie-card-poster' src={`${props.poster}`} /> :
+
+                        <div className='movie-card-poster-none'>
+                            <IconContext.Provider
+                                value={{ color: '#2c3e5027', size: '200px' }}
+                            >
+                                <BsQuestion />
+                            </IconContext.Provider>
+                        </div>
+                }
+
                 <div className='movie-card-title'>
                     {props.title}
                 </div>

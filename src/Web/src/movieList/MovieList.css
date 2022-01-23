@@ -49,6 +49,13 @@
     border-radius: 20px 20px 0px 0px;
     opacity: 0.5;
 }
+.movie-card-poster-none{
+    width: 190px;
+    height: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .movie-card-title{
     position: absolute;
     color: #2C3E50;
