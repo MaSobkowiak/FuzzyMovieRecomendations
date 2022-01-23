@@ -1,41 +1,31 @@
-from . import db
+from sqlalchemy import Column, Integer, String, Float, BigInteger, Boolean, Date, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
+Base = declarative_base()
 
-class Movie(db.Model):
+class Movie(Base):
     __tablename__ = 'movies'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(1000))
-    adult = db.Column(db.Boolean)
-    budget = db.Column(db.BigInteger) #??
-    genres = db.Column(db.String(2000))
-    original_language = db.Column(db.String(100))
-    overview = db.Column(db.String(5000))
-    popularity = db.Column(db.Float)
-    poster_path = db.Column(db.String(1000))
-    release_date = db.Column(db.Date)
-    runtime = db.Column(db.Float)
-    vote_avg = db.Column(db.Float)
-    vote_count = db.Column(db.Float)
+    # __table_args__ = {"schema":"moviesdb"}
+    id = Column(Integer, primary_key=True)
+    title = Column(String(1000))
+    adult = Column(Boolean)
+    budget = Column(BigInteger) #??
+    genres = Column(String(2000))
+    original_language = Column(String(100))
+    overview = Column(String(5000))
+    popularity = Column(Float)
+    poster_path = Column(String(1000))
+    release_date = Column(Date)
+    runtime = Column(Float)
+    vote_average = Column(Float)
+    vote_count = Column(Float)
 
 
 
-class Credit(db.Model):
-    __tablename__ = 'credits'
-    id = db.Column(db.Integer, primary_key=True)
-    cast = db.Column(db.String(5000))
-    crew = db.Column(db.String(5000))
-    movieId = db.Column(db.Integer, db.ForeignKey('movie.id'))
-
-
-class Keyword(db.Model):
-    __tablename__ = 'keywords'
-    id = db.Column(db.Integer, primary_key=True)
-    keywords = db.Column(db.String(5000))
-    movieId = db.Column(db.Integer, db.ForeignKey('movie.id'))
-
-class Rating(db.Model):
-    __tablename__ = 'ratings'
-    id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer)
-    rating = db.Column(db.Float)
-    movieId = db.Column(db.Integer, db.ForeignKey('movieId'))
+# class Rating(db.Model):
+#     __tablename__ = 'ratings'
+#     id = db.Column(db.Integer, primary_key=True)
+#     userId = db.Column(db.Integer)
+#     rating = db.Column(db.Float)
+#     movieId = db.Column(db.Integer, db.ForeignKey('movieId'))
