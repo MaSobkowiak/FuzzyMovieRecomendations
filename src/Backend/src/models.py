@@ -1,7 +1,8 @@
-from .helper import Base
 from sqlalchemy import Column, Integer, String, Float, BigInteger, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
+Base = declarative_base()
 
 class Movie(Base):
     __tablename__ = 'movies'

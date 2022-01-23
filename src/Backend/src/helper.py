@@ -8,9 +8,10 @@ from sqlalchemy_utils import database_exists, create_database
 from os import path
 from flask_cors import CORS
 import pandas as pd
+from .models import *
 
 
-Base = declarative_base()
+
 DB_NAME = "moviesdb.db"
 
 
@@ -26,24 +27,25 @@ def create_app():
 
 
 def create_db():
-    # if not path.exists('web' + DB_NAME):
-    #     db.create_all(app=app)
-    #     print('Movie db created!')
-    from .models import Movie
+    if path.exists(DB_NAME):
+        print('Database already exists...')
+    else:
+       
 
-    url = f'sqlite:///{DB_NAME}'
-    engine = create_engine(url, echo=True)
+        url = f'sqlite:///{DB_NAME}'
+        engine = create_engine(url, echo=True)
 
-    #Base.metadata.create_all(engine)
+        #Base.metadata.create_all(engine)
 
-    filename = 'src/movies.tsv'
-    movie = pd.read_csv(filename, sep='\t')
-    movie.to_sql('movies', con=engine, if_exists='replace', index=False, index_label='id')
+        filename = 'src/movies.tsv'
+        movie = pd.read_csv(filename, sep='\t')
+        movie.to_sql('movies', con=engine, if_exists='replace', index=False, index_label='id')
+        print('Movie db created!')
 
 
 def get_movies(year, budget, mood, duration, vote, popularity):
     # TU pobrać odpowiednie filmy z bazy
-    from .models import Movie
+
 
     url = f'sqlite:///{DB_NAME}'
 
@@ -67,28 +69,4 @@ def get_movies(year, budget, mood, duration, vote, popularity):
         
         movies.append(movie)
 
-    # movies = [
-    #     {
-    #         "id": 'fdasfda',
-    #         "title": 'Toy Story',
-    #         "duration": 120,
-    #         "description": "lorem ipsum bla bla bla",
-    #         "country": 'US',
-    #         "genre": 'Animation',
-    #         "score": 7.5,
-    #         "accuracy": 93.3,
-    #         "poster": '',
-    #     },
-    #     {
-    #         "id": 'fdasfda',
-    #         "title": 'Toy Story',
-    #         "duration": 120,
-    #         "description": "lorem ipsum bla bla bla",
-    #         "country": 'US',
-    #         "genre": 'Animation',
-    #         "score": 7.5,
-    #         "accuracy": 93.3,
-    #         "poster": 'https://image.tmdb.org/t/p/w500/jSozzzVOR2kfXgTUuGnbgG2yRFi.jpg?fbclid=IwAR0M63XT0IHaKr922wH_0Dmu5-SeVv02c-V9xK6TLEPVcAe7tr5uTPvrfSU',
-    #     }
-    # ]
     return movies
