@@ -1,13 +1,14 @@
-import { duration } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { IMovie } from '../interfaces/IMovie';
-import { MovieExample } from './MovieExample';
 import { IoCloseCircleSharp } from "react-icons/io5";
 import "./MovieList.css"
 import { IconContext } from 'react-icons';
 
+interface IMovieListProps {
+    movieList: IMovie[]
+}
 
-const MovieList: FC = (): JSX.Element => {
+const MovieList = (props: IMovieListProps): JSX.Element => {
 
     const [activeMovie, setActiveMovie] = useState<IMovie>()
 
@@ -46,7 +47,7 @@ const MovieList: FC = (): JSX.Element => {
     return (
         <div className="movie-list">
             <div className='movie-list-main'>
-                {MovieExample.map((movie, i) => <MovieCard {...movie} />
+                {props.movieList.map((movie, i) => <MovieCard {...movie} />
                 )}
             </div>
             {

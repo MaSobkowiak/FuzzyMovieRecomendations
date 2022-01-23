@@ -43,6 +43,7 @@ const HomeScreen: FC = (): JSX.Element => {
         })
             .then((resp) => {
                 setLoading(false)
+                setMovieList(resp.data)
                 console.log(resp)
             })
             .catch((err) => {
@@ -166,7 +167,7 @@ const HomeScreen: FC = (): JSX.Element => {
                     </div>
                     : <>
                         {
-                            movieList.length ? <MovieList /> : <MovieInit />
+                            movieList.length ? <MovieList movieList={movieList} /> : <MovieInit />
                         }
 
                     </>

@@ -1,4 +1,4 @@
-from src.helper import create_app
+from src.helper import create_app, get_movies
 import flask
 from flask import request
 
@@ -14,10 +14,9 @@ def movies():
     vote = request.args.get('vote')
     popularity = request.args.get('popularity')
 
-    # TODO tu wysyłać filmy
-    # data = get_data()
+    data = get_movies(year, budget, mood, duration, vote, popularity)
 
-    response = flask.jsonify({'some': 'data'})
+    response = flask.jsonify(data)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
