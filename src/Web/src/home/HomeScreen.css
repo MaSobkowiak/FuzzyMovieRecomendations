@@ -9,6 +9,7 @@
 .home-bar{
     background-color: #ECF0F1;
     height: 50px;
+    min-height: 50px;
     display: flex;
     flex-direction: row;
     justify-content: left;

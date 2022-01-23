@@ -36,15 +36,69 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
                         <div className='movie-list-info-upper-title'>
                             {activeMovie?.title}
                         </div>
+                        <div className='movie-list-info-upper-scores'>
+                            <div>
+                                Accuracy: {activeMovie?.accuracy}%
+                            </div>
+                            <div>
+                                IMDB score: {activeMovie?.score}
+                            </div>
+                        </div>
                         {activeMovie?.description}
                     </div>
                 </div>
                 <div className='movie-list-info-lower'>
                     <div className='movie-list-info-lower-column'>
-
+                        <div className='movie-list-info-lower-element' style={{ backgroundColor: '#FFC312' }}>
+                            <div style={{ fontWeight: '600' }}>
+                                Year of production:
+                            </div>
+                            <div>
+                                {activeMovie?.year}
+                            </div>
+                        </div>
+                        <div className='movie-list-info-lower-element' style={{ backgroundColor: '#D980FA' }}>
+                            <div style={{ fontWeight: '600' }}>
+                                Budget
+                            </div>
+                            <div>
+                                {activeMovie?.budget} $
+                            </div>
+                        </div>
+                        <div className='movie-list-info-lower-element' style={{ backgroundColor: '#B53471' }}>
+                            <div style={{ fontWeight: '600' }}>
+                                Mood
+                            </div>
+                            <div>
+                                {activeMovie?.genre}
+                            </div>
+                        </div>
                     </div>
                     <div className='movie-list-info-lower-column'>
-
+                        <div className='movie-list-info-lower-element' style={{ backgroundColor: '#F79F1F' }}>
+                            <div style={{ fontWeight: '600' }}>
+                                Duration
+                            </div>
+                            <div>
+                                {activeMovie?.duration} min.
+                            </div>
+                        </div>
+                        <div className='movie-list-info-lower-element' style={{ backgroundColor: '#12CBC4' }}>
+                            <div style={{ fontWeight: '600' }}>
+                                Vote score
+                            </div>
+                            <div>
+                                {activeMovie?.score}
+                            </div>
+                        </div>
+                        <div className='movie-list-info-lower-element' style={{ backgroundColor: '#A3CB38' }}>
+                            <div style={{ fontWeight: '600' }}>
+                                Popularity
+                            </div>
+                            <div>
+                                {activeMovie?.popularity}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {/*
