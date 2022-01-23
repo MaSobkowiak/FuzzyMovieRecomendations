@@ -1,0 +1,13 @@
+import React from 'react';
+
+
+const SplashScreen: FC = (): JSX.Element => {
+
+  return (
+    <div className="app">
+      test
+    </div>
+  );
+}
+
+export default SplashScreen;
