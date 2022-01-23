@@ -3,7 +3,11 @@ import "./HomeScreen.css"
 import { RiMovie2Fill } from "react-icons/ri";
 import { IconContext } from 'react-icons';
 import { Slider } from '@mui/material';
+import { IoMdRefresh } from "react-icons/io";
 import MovieList from '../movieList/MovieList';
+import { IMovie } from '../interfaces/IMovie';
+import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 
 
 const HomeScreen: FC = (): JSX.Element => {
@@ -15,6 +19,36 @@ const HomeScreen: FC = (): JSX.Element => {
     const [vote, setVote] = useState<number | number[]>(0)
     const [popularity, setPopularity] = useState<number | number[]>(0)
 
+
+    const [loading, setLoading] = useState<boolean>(false)
+    const [movieList, setMovieList] = useState<IMovie[]>([])
+
+    const handleRefresh = () => {
+        setLoading(true)
+        axios({
+            method: 'post',
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Access-Control-Allow-Origin": "*"
+            },
+
+            url: ' https://localhost:8080/movies',
+        })
+            .then((resp) => {
+                setLoading(false)
+            })
+            .catch((err) => console.error(err));
+    }
+
+    const MovieInit = () => {
+        return (
+            <div className='home-init-container'>
+                <div className='home-init-button' onClick={handleRefresh}>
+                    Search Movies!
+                </div>
+            </div>
+        )
+    }
     return (
         <div className="home-container">
             <div className='home-bar'>
@@ -24,6 +58,12 @@ const HomeScreen: FC = (): JSX.Element => {
                 </IconContext.Provider>
                 <div className='home-bar-title'>
                     Movie Recomendations
+                </div>
+                <div className='home-bar-refresh' onClick={handleRefresh}>
+                    <IconContext.Provider
+                        value={{ color: '#2C3E50', size: '26px' }}>
+                        <IoMdRefresh />
+                    </IconContext.Provider>
                 </div>
             </div>
             <div className='home-sliders-container'>
@@ -99,16 +139,28 @@ const HomeScreen: FC = (): JSX.Element => {
                         </div>
                     </div>
                 </div>
-                <div className='home-sliders-info'>
+                {/* <div className='home-sliders-info'>
                     <div> Year of production : {year}</div>
                     <div> Budget : {budget}</div>
                     <div> Mood : {mood}</div>
                     <div> Duration : {duration}</div>
                     <div> Vote score : {vote}</div>
                     <div> Popularity : {popularity}</div>
-                </div>
+                </div> */}
             </div>
-            <MovieList />
+            {
+                loading ?
+                    <div className='home-init-container'>
+                        <ClipLoader color={"#ED4C67"} loading={loading} size={150} />
+                    </div>
+                    : <>
+                        {
+                            movieList.length ? <MovieList /> : <MovieInit />
+                        }
+
+                    </>
+            }
+
         </div>
     );
 }
