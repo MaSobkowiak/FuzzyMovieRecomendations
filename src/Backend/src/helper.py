@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Response, request, redirect, url_for
 import logging.config
+import json
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -54,6 +55,13 @@ def check_poster(poster_path):
         return ''
 
 
+def check_genre(genre):
+    if(genre):
+        return str(json.loads(genre.replace("'", "\""))[0]['name'])
+    else:
+        return 'No data'
+
+
 def get_movies(year, budget, mood, duration, vote, popularity):
     # TU pobrać odpowiednie filmy z bazy
 
@@ -76,7 +84,7 @@ def get_movies(year, budget, mood, duration, vote, popularity):
 
         movie['year'] = r.release_date
         movie['budget'] = r.budget
-        movie['genre'] = r.genres
+        movie['genre'] = check_genre(r.genres)
         movie['duration'] = r.runtime
         movie['score'] = r.vote_average
         movie['popularity'] = r.popularity
