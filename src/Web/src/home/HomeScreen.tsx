@@ -9,6 +9,63 @@ import { IMovie } from '../interfaces/IMovie';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 
+const marks1 = [
+    {
+        value: 0,
+        label: 'Low',
+    },
+    {
+        value: 1,
+        label: 'Medium',
+    },
+    {
+        value: 2,
+        label: 'High',
+    },
+];
+
+const marks2 = [
+    {
+        value: 0,
+        label: 'Sad',
+    },
+    {
+        value: 1,
+        label: 'Neutral',
+    },
+    {
+        value: 2,
+        label: 'Funny',
+    },
+];
+const marks3 = [
+    {
+        value: 0,
+        label: 'Short',
+    },
+    {
+        value: 1,
+        label: 'Medium',
+    },
+    {
+        value: 2,
+        label: 'Long',
+    },
+];
+const marks4 = [
+    {
+        value: 0,
+        label: 'Old',
+    },
+    {
+        value: 1,
+        label: 'Between',
+    },
+    {
+        value: 2,
+        label: 'New',
+    },
+];
 
 const HomeScreen: FC = (): JSX.Element => {
 
@@ -84,34 +141,28 @@ const HomeScreen: FC = (): JSX.Element => {
                         <div className='home-sliders-bottom' style={{ backgroundColor: '#FFC312' }}>
                             Year of production
                             <div className='home-sliders-one'>
-                                Old
                                 <Slider sx={{
-                                    width: 180,
+                                    width: 250,
                                     color: '#2C3E50',
-                                }} aria-label="Year" min={10} max={100} value={year} onChange={(event, v) => { setYear(v) }} />
-                                New
+                                }} aria-label="Year" track={false} marks={marks4} min={0} max={2} value={year} onChange={(event, v) => { setYear(v) }} />
                             </div>
                         </div>
                         <div className='home-sliders-bottom' style={{ backgroundColor: '#D980FA' }}>
                             Budget
                             <div className='home-sliders-one'>
-                                Low
                                 <Slider sx={{
-                                    width: 180,
+                                    width: 250,
                                     color: '#2C3E50',
-                                }} aria-label="Year" min={10} max={100} value={budget} onChange={(event, v) => { setBudget(v) }} />
-                                High
+                                }} aria-label="Year" track={false} marks={marks1} min={0} max={2} value={budget} onChange={(event, v) => { setBudget(v) }} />
                             </div>
                         </div>
                         <div className='home-sliders-bottom' style={{ backgroundColor: '#B53471' }}>
                             Mood
                             <div className='home-sliders-one'>
-                                Sad
                                 <Slider sx={{
-                                    width: 180,
+                                    width: 250,
                                     color: '#2C3E50',
-                                }} aria-label="Year" min={10} max={100} value={mood} onChange={(event, v) => { setMood(v) }} />
-                                Funny
+                                }} aria-label="Year" track={false} marks={marks2} min={0} max={2} value={mood} onChange={(event, v) => { setMood(v) }} />
                             </div>
                         </div>
                     </div>
@@ -119,34 +170,28 @@ const HomeScreen: FC = (): JSX.Element => {
                         <div className='home-sliders-bottom' style={{ backgroundColor: '#F79F1F' }}>
                             Duration
                             <div className='home-sliders-one'>
-                                Short
                                 <Slider sx={{
-                                    width: 180,
+                                    width: 250,
                                     color: '#2C3E50',
-                                }} aria-label="Year" min={10} max={100} value={duration} onChange={(event, v) => { setDuration(v) }} />
-                                Long
+                                }} aria-label="Year" track={false} marks={marks3} min={0} max={2} value={duration} onChange={(event, v) => { setDuration(v) }} />
                             </div>
                         </div>
                         <div className='home-sliders-bottom' style={{ backgroundColor: '#12CBC4' }}>
                             Vote score
                             <div className='home-sliders-one'>
-                                Low
                                 <Slider sx={{
-                                    width: 180,
+                                    width: 250,
                                     color: '#2C3E50',
-                                }} aria-label="Year" min={10} max={100} value={vote} onChange={(event, v) => { setVote(v) }} />
-                                High
+                                }} aria-label="Year" track={false} marks={marks1} min={0} max={2} value={vote} onChange={(event, v) => { setVote(v) }} />
                             </div>
                         </div>
                         <div className='home-sliders-bottom' style={{ backgroundColor: '#A3CB38' }} >
                             Popularity
                             <div className='home-sliders-one'>
-                                Low
                                 <Slider sx={{
-                                    width: 180,
+                                    width: 250,
                                     color: '#2C3E50',
-                                }} aria-label="Year" min={10} max={100} value={popularity} onChange={(event, v) => { setPopularity(v) }} />
-                                High
+                                }} aria-label="Year" track={false} marks={marks1} min={0} max={2} value={popularity} onChange={(event, v) => { setPopularity(v) }} />
                             </div>
                         </div>
                     </div>

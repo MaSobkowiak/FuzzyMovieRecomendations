@@ -56,6 +56,7 @@
     flex-direction: column;
     width: 100%;
     justify-content: space-evenly;
+    margin-bottom: 20px;
 }
 .home-sliders{
     display: flex;
@@ -82,7 +83,7 @@
     width: 300px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-family: 'Montserrat', sans-serif;
     color: #2C3E50;
@@ -119,4 +120,14 @@
     height: 90px;
     font-size: 28px;
     cursor: pointer;
+}
+.MuiSlider-markLabel{
+    font-family: 'Montserrat', sans-serif !important;
+    color: #2C3E50 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+}
+.MuiSlider-markLabelActive{
+    font-size: 17px !important;
+    font-weight: 700 !important;
 }

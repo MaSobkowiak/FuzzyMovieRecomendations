@@ -23,8 +23,8 @@
     margin-right: 10px;
 }
 .movie-list-info-img{
-    width: 250px;
-    height: 400px;
+    width: auto;
+    height: 300px;
     border-radius: 20px;
 }
 .movie-list-info-upper{
