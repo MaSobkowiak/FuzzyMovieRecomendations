@@ -7,4 +7,5 @@ export interface IMovie {
     genre: any;
     score: number;
     accuracy: number;
+    description: string;
 }

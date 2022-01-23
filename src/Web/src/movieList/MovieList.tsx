@@ -21,22 +21,38 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
                     <IoCloseCircleSharp onClick={() => setActiveMovie(undefined)} />
                 </IconContext.Provider>
 
-                {
-                    activeMovie?.poster ? <img alt='No poster avalible' className='movie-list-info-img' src={`${activeMovie?.poster}`} /> :
-                        <div className='movie-card-poster-none'>
-                            <IconContext.Provider
-                                value={{ color: '#2c3e5027', size: '200px' }}
-                            >
-                                <BsQuestion />
-                            </IconContext.Provider>
+                <div className='movie-list-info-upper'>
+                    {
+                        activeMovie?.poster ? <img alt='No poster avalible' className='movie-list-info-img' src={`${activeMovie?.poster}`} /> :
+                            <div className='movie-list-info-img'>
+                                <IconContext.Provider
+                                    value={{ color: '#2c3e5027', size: '200px' }}
+                                >
+                                    <BsQuestion />
+                                </IconContext.Provider>
+                            </div>
+                    }
+                    <div className='movie-list-info-upper-text'>
+                        <div className='movie-list-info-upper-title'>
+                            {activeMovie?.title}
                         </div>
-                }
+                        {activeMovie?.description}
+                    </div>
+                </div>
+                <div className='movie-list-info-lower'>
+                    <div className='movie-list-info-lower-column'>
 
-                <div className='movie-list-info-txt'>{activeMovie?.title}</div>
+                    </div>
+                    <div className='movie-list-info-lower-column'>
+
+                    </div>
+                </div>
+                {/*
+                <div className='movie-list-info-txt'></div>
                 <div className='movie-list-info-txt'>{activeMovie?.country}</div>
                 <div className='movie-list-info-txt'>{activeMovie?.genre}</div>
                 <div className='movie-list-info-txt'>{activeMovie?.score}</div>
-                <div className='movie-list-info-txt'>{activeMovie?.duration}</div>
+                <div className='movie-list-info-txt'>{activeMovie?.duration}</div> */}
             </div>
         )
     }

@@ -16,14 +16,48 @@
     flex-wrap: wrap;
 }
 .movie-list-info{
+    background-color: aqua;
     display: flex;
     flex-direction: column;
-    width: 800px;
+    width: 700px;
+    height: 100%;
 }
 .movie-list-info-img{
-    height: 40%;
-    width: auto;
     object-fit: scale-down;
+    width: 250px;
+    height: auto;
+    border-radius: 20px;
+}
+.movie-list-info-upper{
+    display: flex;
+    flex-direction: row;
+    width: 660px;
+    margin: 0 20px 0px 20px;
+    background-color: blanchedalmond;
+    justify-content: space-between;
+}
+.movie-list-info-upper-title{
+    font-family: 'Montserrat', sans-serif;
+    color: #2C3E50;
+    font-weight: 700;
+    font-size: 30px;
+}
+.movie-list-info-upper-text{
+    width: 380px;
+    font-family: 'Montserrat', sans-serif;
+    color: #2C3E50;
+    font-weight: 500;
+}
+.movie-list-info-lower{
+    width: 660px;
+    margin: 0 20px 0px 20px;
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: row;
+}
+.movie-list-info-lower-column{
+    display: flex;
+    flex-direction: column;
 }
 .movie-card{
     background-color: #ECF0F1;
