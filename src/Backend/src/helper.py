@@ -109,7 +109,7 @@ def check_weight(comp):
 def get_movies(year, budget, mood, duration, vote, popularity):
     # TU pobrać odpowiednie filmy z bazy
 
-    url = f'sqlite:///{DB_NAME}'
+    url = f'sqlite:///{DB_NAME}?check_same_thread=False'
 
     engine = create_engine(url, echo=True)
     session = sessionmaker(bind=engine)
@@ -140,11 +140,12 @@ def get_movies(year, budget, mood, duration, vote, popularity):
 
             movies.append(movie)
 
-            print(comp, movie['title'])
+            print(comp, movie['title'], str(
+                (datetime.datetime.now() - timeout).total_seconds()) + "s")
 
         if(len(movies) > 8):
             break
-        if((datetime.datetime.now() - timeout).total_seconds() > 120):
+        if((datetime.datetime.now() - timeout).total_seconds() > 90):
             break
 
     return sorted(movies, key=lambda d: d['accuracy'])
