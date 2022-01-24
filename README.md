@@ -1,9 +1,8 @@
 # Movie recomendation system
 ## Overview
-The system takes 6 user inputs:
+The system takes 5 user inputs:
 - Year of production
 - Budget
-- Mood
 - Duration
 - Vote score
 - Popularity
