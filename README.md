@@ -10,7 +10,7 @@ The system takes 5 user inputs:
 
 ![Screenshot](docs/user_input.png)
 
-If it finds 9 movies, or the total processing time exceeds 90 seconds, it stops looking and data if presented via WebApp. Posters for movies are scraped from https://www.themoviedb.org/.
+If it finds 9 movies, or the total processing time exceeds 90 seconds, it stops looking and data if presented via WebApp. Posters for movies are scraped from https://www.themoviedb.org/. Each run, movies are processed in random order, resulting in different recomendations for every request, even if user inputs doesn't change.
 
 ![Screenshot](docs/movies.png)
 
