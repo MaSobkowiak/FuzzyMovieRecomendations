@@ -82,27 +82,28 @@ def get_movies(year, budget, mood, duration, vote, popularity):
     s = session()
     res = s.query(Movie).all()
 
-    print(year, budget, mood, duration, vote, popularity)
-    for x in res:
-        print(get_fuzzy(year, budget, mood, duration, vote, popularity, x), x.title)
-
     movies = []
-    # for r in res:
-    #     movie = {}
-    #     movie['id'] = r.id
-    #     movie['title'] = r.title
-    #     movie['poster'] = check_poster(r.poster_path)
-    #     movie['country'] = r.original_language
-    #     movie['accuracy'] = '99'
-    #     movie['description'] = r.overview
+    for m in res:
+        comp = get_fuzzy(year, budget, mood, duration, vote, popularity, m)
+        if(min(comp) > 0.5):
+            movie = {}
+            movie['id'] = m.id
+            movie['title'] = m.title
+            movie['poster'] = check_poster(m.poster_path)
+            movie['country'] = m.original_language
+            movie['accuracy'] = '99'
+            movie['description'] = m.overview
 
-    #     movie['year'] = r.release_date
-    #     movie['budget'] = r.budget
-    #     movie['genre'] = check_genre(r.genres)
-    #     movie['duration'] = r.runtime
-    #     movie['score'] = r.vote_average
-    #     movie['popularity'] = r.popularity
+            movie['year'] = m.release_date
+            movie['budget'] = m.budget
+            movie['genre'] = check_genre(m.genres)
+            movie['duration'] = m.runtime
+            movie['score'] = m.vote_average
+            movie['popularity'] = m.popularity
 
-    #     movies.append(movie)
+            movies.append(movie)
+
+        if(len(movies) > 10):
+            break
 
     return movies
