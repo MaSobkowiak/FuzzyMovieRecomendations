@@ -80,29 +80,29 @@ def get_movies(year, budget, mood, duration, vote, popularity):
     engine = create_engine(url, echo=True)
     session = sessionmaker(bind=engine)
     s = session()
-    res = s.query(Movie).limit(15).all()
+    res = s.query(Movie).all()
 
     print(year, budget, mood, duration, vote, popularity)
-    c = get_fuzzy(year, budget, mood, duration, vote, popularity, res[0])
-    print(c)
+    for x in res:
+        print(get_fuzzy(year, budget, mood, duration, vote, popularity, x), x.title)
 
     movies = []
-    for r in res:
-        movie = {}
-        movie['id'] = r.id
-        movie['title'] = r.title
-        movie['poster'] = check_poster(r.poster_path)
-        movie['country'] = r.original_language
-        movie['accuracy'] = '99'
-        movie['description'] = r.overview
+    # for r in res:
+    #     movie = {}
+    #     movie['id'] = r.id
+    #     movie['title'] = r.title
+    #     movie['poster'] = check_poster(r.poster_path)
+    #     movie['country'] = r.original_language
+    #     movie['accuracy'] = '99'
+    #     movie['description'] = r.overview
 
-        movie['year'] = r.release_date
-        movie['budget'] = r.budget
-        movie['genre'] = check_genre(r.genres)
-        movie['duration'] = r.runtime
-        movie['score'] = r.vote_average
-        movie['popularity'] = r.popularity
+    #     movie['year'] = r.release_date
+    #     movie['budget'] = r.budget
+    #     movie['genre'] = check_genre(r.genres)
+    #     movie['duration'] = r.runtime
+    #     movie['score'] = r.vote_average
+    #     movie['popularity'] = r.popularity
 
-        movies.append(movie)
+    #     movies.append(movie)
 
     return movies

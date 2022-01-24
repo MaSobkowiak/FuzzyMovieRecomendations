@@ -10,12 +10,17 @@ from sqlalchemy.orm import sessionmaker
 
 def get_fuzzy(year, budget, mood, duration, vote, popularity, movie):
 
-    f_year = ctrl.Antecedent(np.arange(1960, 2022, 1), "year")
-    f_budget = ctrl.Antecedent(np.arange(0, 500000, 1), "budget")
+    f_year = ctrl.Antecedent(
+        np.arange(RELEASE["low"][0], RELEASE["high"][2], 1), "year")
+    f_budget = ctrl.Antecedent(
+        np.arange(BUDGET["low"][0], BUDGET["high"][2], 1000), "budget")
     # f_mood = ctrl.Antecedent(np.arange(0.7, 8.2, 0.1), "mood")
-    f_duration = ctrl.Antecedent(np.arange(4.0, 15.0, 0.1), "duration")
-    f_vote = ctrl.Antecedent(np.arange(4.0, 15.0, 0.1), "vote")
-    f_popularity = ctrl.Antecedent(np.arange(4.0, 500.0, 0.1), "popularity")
+    f_duration = ctrl.Antecedent(
+        np.arange(RUNTIME["low"][0], RUNTIME["high"][2], 1), "duration")
+    f_vote = ctrl.Antecedent(
+        np.arange(VOTE["low"][0],  VOTE["high"][2], 0.1), "vote")
+    f_popularity = ctrl.Antecedent(
+        np.arange(POPULARITY["low"][0], POPULARITY["high"][2], 1), "popularity")
 
     f_year["low"] = fuzz.trimf(
         f_year.universe, RELEASE["low"])
