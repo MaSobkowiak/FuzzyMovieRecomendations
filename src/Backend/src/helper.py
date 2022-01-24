@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Response, request, redirect, url_for
 import logging.config
 import json
+import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -115,6 +116,8 @@ def get_movies(year, budget, mood, duration, vote, popularity):
     s = session()
     res = s.query(Movie).order_by(func.random()).all()
 
+    timeout = datetime.datetime.now()
+
     movies = []
     for m in res:
         comp = get_fuzzy(year, budget, mood, duration, vote, popularity, m)
@@ -136,9 +139,12 @@ def get_movies(year, budget, mood, duration, vote, popularity):
             movie['popularity'] = round(m.popularity, 1)
 
             movies.append(movie)
+
             print(comp, movie['title'])
 
         if(len(movies) > 8):
+            break
+        if((datetime.datetime.now() - timeout).total_seconds() > 120):
             break
 
     return sorted(movies, key=lambda d: d['accuracy'])
