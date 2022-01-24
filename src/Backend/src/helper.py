@@ -84,7 +84,7 @@ def check_poster(poster_path, movie_title):
 
 
 def check_genre(genre):
-    if(len(genre) != 0):
+    if(len(json.loads(genre.replace("'", "\""))) != 0):
         return str(json.loads(genre.replace("'", "\""))[0]['name'])
     else:
         return 'No data'
@@ -133,12 +133,12 @@ def get_movies(year, budget, mood, duration, vote, popularity):
             movie['genre'] = check_genre(m.genres)
             movie['duration'] = m.runtime
             movie['score'] = m.vote_average
-            movie['popularity'] = m.popularity
+            movie['popularity'] = round(m.popularity, 1)
 
             movies.append(movie)
             print(comp, movie['title'])
 
-        if(len(movies) > 10):
+        if(len(movies) > 8):
             break
 
-    return movies
+    return sorted(movies, key=lambda d: d['accuracy'])

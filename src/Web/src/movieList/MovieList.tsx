@@ -101,12 +101,6 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
                         </div>
                     </div>
                 </div>
-                {/*
-                <div className='movie-list-info-txt'></div>
-                <div className='movie-list-info-txt'>{activeMovie?.country}</div>
-                <div className='movie-list-info-txt'>{activeMovie?.genre}</div>
-                <div className='movie-list-info-txt'>{activeMovie?.score}</div>
-                <div className='movie-list-info-txt'>{activeMovie?.duration}</div> */}
             </div>
         )
     }
@@ -114,9 +108,6 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
     const MovieCard = (props: IMovie) => {
         return (
             <div className='movie-card' onClick={() => setActiveMovie(props)}>
-                <div className='movie-card-accuracy'>
-                    {props.accuracy}%
-                </div>
                 {
                     props.poster ? <img alt='No poster avalible' className='movie-card-poster' src={`${props.poster}`} /> :
 
@@ -128,7 +119,9 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
                             </IconContext.Provider>
                         </div>
                 }
-
+                <div className='movie-card-accuracy'>
+                    {props.accuracy}%
+                </div>
                 <div className='movie-card-title'>
                     {props.title}
                 </div>
