@@ -6,8 +6,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.sql.expression import func
 from os import path
 from flask_cors import CORS
+from .fuzzy_vals import COMPOUNDS, COMPOUNDS_WITH_BUDGET
 import pandas as pd
 from .models import *
 from .fuzzy import get_fuzzy
@@ -72,6 +74,14 @@ def check_genre(genre):
         return 'No data'
 
 
+def check_weight(comp):
+    # If budget == 0
+    if(len(comp) == 4):
+        return comp[0] * COMPOUNDS['RELEASE'] + comp[1] * COMPOUNDS['RUNTIME'] + comp[2] * COMPOUNDS['VOTE'] + comp[3] * COMPOUNDS['POPULARITY']
+    if(len(comp) == 5):
+        return comp[0] * COMPOUNDS_WITH_BUDGET['RELEASE'] + comp[1] * COMPOUNDS_WITH_BUDGET['RUNTIME'] + comp[2] * COMPOUNDS_WITH_BUDGET['VOTE'] + comp[3] * COMPOUNDS_WITH_BUDGET['POPULARITY'] + comp[4] * COMPOUNDS_WITH_BUDGET['BUDGET']
+
+
 def get_movies(year, budget, mood, duration, vote, popularity):
     # TU pobrać odpowiednie filmy z bazy
 
@@ -80,18 +90,19 @@ def get_movies(year, budget, mood, duration, vote, popularity):
     engine = create_engine(url, echo=True)
     session = sessionmaker(bind=engine)
     s = session()
-    res = s.query(Movie).all()
+    res = s.query(Movie).order_by(func.random()).all()
 
     movies = []
     for m in res:
         comp = get_fuzzy(year, budget, mood, duration, vote, popularity, m)
-        if(min(comp) > 0.5):
+        accuracy = check_weight(comp)
+        if(accuracy > 0.7):
             movie = {}
             movie['id'] = m.id
             movie['title'] = m.title
             movie['poster'] = check_poster(m.poster_path)
             movie['country'] = m.original_language
-            movie['accuracy'] = '99'
+            movie['accuracy'] = round(accuracy * 100, 2)
             movie['description'] = m.overview
 
             movie['year'] = m.release_date
@@ -102,6 +113,7 @@ def get_movies(year, budget, mood, duration, vote, popularity):
             movie['popularity'] = m.popularity
 
             movies.append(movie)
+            print(comp, movie['title'])
 
         if(len(movies) > 10):
             break

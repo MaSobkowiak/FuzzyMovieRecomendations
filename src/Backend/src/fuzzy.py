@@ -14,13 +14,13 @@ def get_fuzzy(year, budget, mood, duration, vote, popularity, movie):
         np.arange(RELEASE["low"][0], RELEASE["high"][2], 1), "year")
     f_budget = ctrl.Antecedent(
         np.arange(BUDGET["low"][0], BUDGET["high"][2], 1000), "budget")
-    # f_mood = ctrl.Antecedent(np.arange(0.7, 8.2, 0.1), "mood")
     f_duration = ctrl.Antecedent(
         np.arange(RUNTIME["low"][0], RUNTIME["high"][2], 1), "duration")
     f_vote = ctrl.Antecedent(
         np.arange(VOTE["low"][0],  VOTE["high"][2], 0.1), "vote")
     f_popularity = ctrl.Antecedent(
         np.arange(POPULARITY["low"][0], POPULARITY["high"][2], 1), "popularity")
+    # f_mood = ctrl.Antecedent(np.arange(0.7, 8.2, 0.1), "mood")
 
     f_year["low"] = fuzz.trimf(
         f_year.universe, RELEASE["low"])
@@ -32,9 +32,6 @@ def get_fuzzy(year, budget, mood, duration, vote, popularity, movie):
     f_budget["low"] = fuzz.trimf(f_budget.universe, BUDGET["low"])
     f_budget["medium"] = fuzz.trimf(f_budget.universe, BUDGET["medium"])
     f_budget["high"] = fuzz.trimf(f_budget.universe, BUDGET["high"])
-
-    # f_mood["sad"] = fuzz.trimf(f_mood.universe, settings.ENGINE_CAPACITY["sad"])
-    # f_mood["happy"] = fuzz.trimf(f_mood.universe, settings.ENGINE_CAPACITY["happy"])
 
     f_duration["low"] = fuzz.trimf(
         f_duration.universe, RUNTIME["low"])
@@ -56,6 +53,9 @@ def get_fuzzy(year, budget, mood, duration, vote, popularity, movie):
     f_popularity["high"] = fuzz.trimf(
         f_popularity.universe, POPULARITY["high"])
 
+    # f_mood["sad"] = fuzz.trimf(f_mood.universe, settings.ENGINE_CAPACITY["sad"])
+    # f_mood["happy"] = fuzz.trimf(f_mood.universe, settings.ENGINE_CAPACITY["happy"])
+
     comparator = []
     comparator.append(
         fuzz.interp_membership(
@@ -64,20 +64,6 @@ def get_fuzzy(year, budget, mood, duration, vote, popularity, movie):
             movie.release_date.year,
         )
     )
-    comparator.append(
-        fuzz.interp_membership(
-            f_budget.universe,
-            f_budget[str(budget)].mf,
-            movie.budget,
-        )
-    )
-    # comparator.append(
-    #     fuzz.interp_membership(
-    #         f_mood.universe,
-    #         f_mood[str(mood)].mf,
-    #         movie.genres,
-    #     )
-    # )
     comparator.append(
         fuzz.interp_membership(
             f_duration.universe,
@@ -99,5 +85,20 @@ def get_fuzzy(year, budget, mood, duration, vote, popularity, movie):
             movie.popularity,
         )
     )
+    if(movie.budget != 0):
+        comparator.append(
+            fuzz.interp_membership(
+                f_budget.universe,
+                f_budget[str(budget)].mf,
+                movie.budget,
+            )
+        )
+    # comparator.append(
+    #     fuzz.interp_membership(
+    #         f_mood.universe,
+    #         f_mood[str(mood)].mf,
+    #         movie.genres,
+    #     )
+    # )
 
     return comparator

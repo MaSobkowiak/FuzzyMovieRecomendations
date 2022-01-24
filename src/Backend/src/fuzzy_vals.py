@@ -27,3 +27,16 @@ VOTE = {
     "medium": [2, 6, 8],
     "high": [7, 9, 10]
 }
+COMPOUNDS = {
+    "RELEASE": 0.3,
+    "RUNTIME": 0.25,
+    "VOTE": 0.25,
+    "POPULARITY": 0.2,
+}
+COMPOUNDS_WITH_BUDGET = {
+    "RELEASE": 0.3,
+    "RUNTIME": 0.25,
+    "VOTE": 0.25,
+    "POPULARITY": 0.1,
+    "BUDGET": 0.1,
+}
