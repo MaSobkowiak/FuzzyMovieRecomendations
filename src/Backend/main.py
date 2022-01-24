@@ -1,4 +1,4 @@
-from src.helper import create_app, get_movies
+from src.helper import create_app, get_movies, get_semantic
 import flask
 from flask import request
 
@@ -7,12 +7,12 @@ app = create_app()
 
 @app.route("/movies", methods=['GET'])
 def movies():
-    year = request.args.get('year')
-    budget = request.args.get('budget')
-    mood = request.args.get('mood')
-    duration = request.args.get('duration')
-    vote = request.args.get('vote')
-    popularity = request.args.get('popularity')
+    year = get_semantic(request.args.get('year'))
+    budget = get_semantic(request.args.get('budget'))
+    mood = get_semantic(request.args.get('mood'))
+    duration = get_semantic(request.args.get('duration'))
+    vote = get_semantic(request.args.get('vote'))
+    popularity = get_semantic(request.args.get('popularity'))
 
     data = get_movies(year, budget, mood, duration, vote, popularity)
 

@@ -10,6 +10,7 @@ from os import path
 from flask_cors import CORS
 import pandas as pd
 from .models import *
+from .fuzzy import get_fuzzy
 import requests
 
 
@@ -44,6 +45,15 @@ def create_db():
         print('Movie db created!')
 
 
+def get_semantic(val):
+    if(val == "0"):
+        return "low"
+    elif(val == "1"):
+        return "medium"
+    elif(val == "2"):
+        return "high"
+
+
 def check_poster(poster_path):
     url = "https://image.tmdb.org/t/p/w500/" + poster_path
     # status_code = urllib.request.urlopen(url).getcode()
@@ -71,6 +81,10 @@ def get_movies(year, budget, mood, duration, vote, popularity):
     session = sessionmaker(bind=engine)
     s = session()
     res = s.query(Movie).limit(15).all()
+
+    print(year, budget, mood, duration, vote, popularity)
+    c = get_fuzzy(year, budget, mood, duration, vote, popularity, res[0])
+    print(c)
 
     movies = []
     for r in res:
