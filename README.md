@@ -15,11 +15,11 @@ If it finds 9 movies, or the total processing time exceeds 90 seconds, it stops 
 ![Screenshot](docs/movies.png)
 
 Accuracy is calculated on the basis of user inputs, each of which has a specific weighting of importance.
-- Year of production: 0.3
-- Duration: 0.25
-- Vote sccore: 0.25
-- Popularity: 0.1
-- Budget: 0.1
+- Year of production: **0.3**
+- Duration: **0.25**
+- Vote sccore: **0.25**
+- Popularity: **0.1**
+- Budget: **0.1**
   
 If budged is 0, it is not included in the calculations and the weights of the rest of the values ​​are rescaled.
 
