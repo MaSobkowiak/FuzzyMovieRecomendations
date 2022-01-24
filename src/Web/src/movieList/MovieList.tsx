@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IMovie } from '../interfaces/IMovie';
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { BsQuestion } from "react-icons/bs";
@@ -62,7 +62,7 @@ const MovieList = (props: IMovieListProps): JSX.Element => {
                                 Budget
                             </div>
                             <div>
-                                {activeMovie?.budget} $
+                                {activeMovie?.budget}
                             </div>
                         </div>
                         <div className='movie-list-info-lower-element' style={{ backgroundColor: '#B53471' }}>

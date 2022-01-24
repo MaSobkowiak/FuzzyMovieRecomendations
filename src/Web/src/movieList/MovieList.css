@@ -123,6 +123,7 @@
     text-align: center;
     overflow: hidden;
     top: 80%;
+    height: 45px;
     width: 190px;
 }
 .movie-card-accuracy{

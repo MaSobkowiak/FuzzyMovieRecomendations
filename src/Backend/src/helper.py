@@ -14,6 +14,7 @@ import pandas as pd
 from .models import *
 from .fuzzy import get_fuzzy
 import requests
+from bs4 import BeautifulSoup
 
 
 DB_NAME = "moviesdb.db"
@@ -56,22 +57,44 @@ def get_semantic(val):
         return "high"
 
 
-def check_poster(poster_path):
+def check_poster(poster_path, movie_title):
     url = "https://image.tmdb.org/t/p/w500/" + poster_path
-    # status_code = urllib.request.urlopen(url).getcode()
     try:
         resp = requests.get(url)
         resp.raise_for_status()
         return url
     except requests.exceptions.HTTPError as err:
-        return ''
+
+        try:
+            header = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
+                      "X-Requested-With": "XMLHttpRequest"}
+            url = 'https://www.themoviedb.org/search?language=pl&query=' + \
+                movie_title.replace(" ", "+").lower()
+
+            page = requests.get(url, headers=header).text
+
+            soup = BeautifulSoup(page, 'html.parser')
+
+            for raw_img in soup.find_all('img', {"class": "poster"}):
+                link = raw_img.get('src')
+                if link:
+                    return 'https://image.tmdb.org/t/p/w500/' + link
+        except:
+            return ''
 
 
 def check_genre(genre):
-    if(genre):
+    if(len(genre) != 0):
         return str(json.loads(genre.replace("'", "\""))[0]['name'])
     else:
         return 'No data'
+
+
+def check_budget(budget):
+    if(budget == 0):
+        return 'No data'
+    else:
+        return str(budget) + " $"
 
 
 def check_weight(comp):
@@ -100,13 +123,13 @@ def get_movies(year, budget, mood, duration, vote, popularity):
             movie = {}
             movie['id'] = m.id
             movie['title'] = m.title
-            movie['poster'] = check_poster(m.poster_path)
+            movie['poster'] = check_poster(m.poster_path, m.title)
             movie['country'] = m.original_language
             movie['accuracy'] = round(accuracy * 100, 2)
             movie['description'] = m.overview
 
-            movie['year'] = m.release_date
-            movie['budget'] = m.budget
+            movie['year'] = str(m.release_date)
+            movie['budget'] = check_budget(m.budget)
             movie['genre'] = check_genre(m.genres)
             movie['duration'] = m.runtime
             movie['score'] = m.vote_average
